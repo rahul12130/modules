@@ -1,0 +1,1810 @@
+module Amantya-NIAB-5gsacore
+{
+    namespace
+    "http://amantyatech.com/ns/yang/Amantya-NIAB-5gsacore";
+
+    prefix amantya-niab;
+
+    organization
+        "Amantya Technologies";
+
+    contact
+        "Support: <https://amantyatech.com/contact/>";
+
+    description
+        "Amantya’s Network in a Box (NiaB) with 5G SA Core Yang model.
+	Copyright © 2022 Amantya Technologies. All Rights Reserved.";
+
+    revision "2022-12-15" 
+    {
+        description
+            "Initial revision";
+    }
+	
+    typedef DisplayString
+    {
+	description
+	    "YANG version of the DisplayString TEXTUAL-CONVENTION.";
+	type string 
+	{
+	     length "0 .. 20000";
+	}
+    }
+    
+    typedef dotted-quad 
+    {
+        type string 
+        {
+	    pattern
+	      '(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}'
+		+ '([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])';
+        }
+        description
+	    "Four octets written as decimal numbers and
+	     separated with the '.' (full stop) character.";
+    }
+    
+    typedef date-and-time 
+    {
+        type string 
+        {
+          pattern
+          '\d{2}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}';
+        }
+       description
+          "The date-and-time type is compatible with the dateTime XML
+		schema type with the following notable exceptions:
+
+		(a) The date-and-time type does not allow negative years.
+
+		(b) The date-and-time time-offset -00:00 indicates an unknown
+		    time zone while -00:00 and +00:00 and Z
+		    all represent the same time zone in dateTime.
+
+		(c) The canonical format of data-and-time values
+		    differs from the canonical format used by the dateTime XML
+		    schema type, which requires all times to be in UTC using
+		    the time-offset 'Z'.
+		(d) Formate It will accept : 15-01-23 15:45:37 ";
+    }
+
+
+    container niab
+    {
+	description
+	    "All NIAB container as leaf to get data";
+		
+	leaf gnb 
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get gNB data";
+        }
+        	
+	leaf amf 
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get AMF data";
+        }
+        
+        leaf smf 
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get SMF data";
+        }
+        
+        leaf upf 
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get UPF data";
+        }
+        
+        leaf nrf 
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get NRF data";
+        }
+        
+        leaf ausf
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get AUSF data";
+        }
+        
+        leaf nssf
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get NSSF data";
+        }
+        
+        leaf nef 
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get NEF data";
+        }
+        
+        leaf pcf
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get PCF data";
+        }
+        
+        leaf af
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get AF data";
+        }
+        
+        leaf bsf
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get BSF data";
+        }
+        
+        leaf udm
+	{
+	    type DisplayString;
+	    config false;
+	    description
+		"To get UDM data";
+        }
+    }
+
+    
+    rpc discover-device 
+    { 
+        description
+          "RPC To trigger notification for Device Registery/discovery in Controller";
+
+        input 
+	{
+            leaf ip_add 
+            {
+		type dotted-quad;
+		description
+		     "IP Address of Device";
+            }
+
+            leaf port
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Port number";
+            }
+            
+            leaf user
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "user Name";
+            }
+            
+            leaf password
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Device password";
+            }
+                      
+            leaf name
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Device Name";
+            }
+            
+            leaf type
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Device Type";
+            }
+            
+            leaf serial
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Device serial number";
+            }
+            
+            leaf manufacturer
+            {
+	        type string 
+	        {
+                     length "0 .. 1000";
+		}
+		description
+		      "Device Manufacturer";
+            }
+            
+            leaf hw_version
+            {
+	        type string 
+	        {
+                     length "0 .. 1000";
+		}
+		description
+		      "Device hw_version";
+            }
+            
+            leaf sw_version
+            {
+	        type string 
+	        {
+                     length "0 .. 1000";
+		}
+		description
+		      "Device sw_version";
+            }
+            
+            leaf is_device_added
+            {
+	        type boolean;
+		description
+		      "Is Device Added - true/false?";
+            }
+        }
+    }
+    
+     rpc configure-band
+    { 
+        description
+
+          "To Configure Band";
+
+        input 
+	{
+            leaf value 
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+
+		description
+
+		      "Band type : Band 41/77/78";
+            }
+
+        }
+
+    }
+    
+    
+    rpc edit-niab 
+    { 
+        description
+          "To Edit NIAB container configuration";
+
+        input 
+	{
+            leaf oldConfig 
+            {
+		type DisplayString;
+		description
+		     " The data to replace";
+            }
+
+            leaf newConfig
+            {
+	        type DisplayString;
+		description
+		      "New Data";
+            }
+            
+            leaf containerType
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Type of the container";
+            }
+        }
+    }
+	
+    rpc alarms 
+    { 
+        description
+          "To Notify Client about alarm ";
+
+        input 
+	{
+            leaf impactedEntity 
+            {
+		type string 
+		{
+	             length "0 .. 255";
+		}
+		description
+		     "containerType";
+            }
+
+            leaf changedState
+            {
+		type string 
+		{
+		    length "0 .. 255";
+		}
+		description
+		    "containerState change";
+            }
+            
+            leaf alarmSource
+            {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+            }
+            
+            leaf timeRaised
+            {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+            }
+            
+            leaf severity
+            {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+            }
+            
+            leaf description
+            {
+		type DisplayString;
+		description
+		    "description";
+            }
+            
+            leaf clearAlarm
+            {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+            }
+            
+            leaf alarmType
+            {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+            }
+        }
+    }
+
+
+    rpc change-contanier-state
+    {
+        description
+          "To START/STOP of a particular container";
+
+        input
+        {
+            leaf containerType
+            {
+                type string {
+                     length "0 .. 255";
+                }
+                description
+                     " Name of the container";
+            }
+
+            leaf containerState
+            {
+                type string {
+                     length "0 .. 255";
+                }
+                description
+                     "New State (start/stop), the container should move to";
+            }
+        }
+    }
+
+    notification updateConfigurtion 
+    {
+        description
+          "Indicates that the File Update in progress has completed.";
+
+        leaf fileUpdated 
+        {
+           description
+             "Indicates the final file update status";
+           type enumeration {
+               enum done {
+                  description
+                    "File Update is DONE";
+               }
+               enum cancelled {
+                  description
+                    "The update was cancelled.";
+               }
+               enum error {
+                  description
+                    "File update is not completed";
+               }
+            }
+        }
+    }
+    
+    notification register-device
+    {
+   	description
+          "Notification To Register/discover Device in Controller";
+          
+            leaf ip_add 
+            {
+		type dotted-quad;
+		description
+		     "IP Address of Device";
+            }
+
+            leaf port
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Port number";
+            }
+            
+            leaf user
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "user Name";
+            }
+            
+            leaf password
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Device password";
+            }
+                      
+            leaf name
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Device Name";
+            }
+            
+            leaf type
+            {
+	        type string 
+	        {
+                     length "0 .. 255";
+		}
+		description
+		      "Device Type";
+            }
+            
+            leaf serial
+            {
+	        type string 
+	        {
+                     length "0 .. 1000";
+		}
+		description
+		      "Device serial number";
+            }
+            
+            leaf manufacturer
+            {
+	        type string 
+	        {
+                     length "0 .. 1000";
+		}
+		description
+		      "Device Manufacturer";
+            }
+            
+            leaf hw_version
+            {
+	        type string 
+	        {
+                     length "0 .. 1000";
+		}
+		description
+		      "Device hw_version";
+            }
+            
+            leaf sw_version
+            {
+	        type string 
+	        {
+                     length "0 .. 1000";
+		}
+		description
+		      "Device sw_version";
+            }
+            
+            leaf is_device_added
+            {
+	        type boolean;
+		description
+		      "Is Device Added - true/false?";
+            } 
+    }
+
+    notification niab_containers_amf 
+    {
+        description
+          "NIAB AMF Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates AMF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+    
+    notification niab_containers_gnb 
+    {
+        description
+          "NIAB gNB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates gNB container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+    
+    
+    notification niab_containers_upf
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates UPF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+    
+    notification niab_containers_smf
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates SMF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+    
+    notification niab_containers_nrf
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates NRF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+
+    notification niab_containers_ausf
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates AUSF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+	
+    notification niab_containers_nssf
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates NSSF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+	
+    notification niab_containers_nef
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates NEF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+	
+    notification niab_containers_pcf
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates PCF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+	
+    notification niab_containers_af
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates AF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+	
+    notification niab_containers_bsf
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates BSF container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+    
+    notification niab_containers_udm
+    {
+        description
+          "NIAB Container's state change  event";
+
+        leaf changedState 
+        {
+           description
+             "Indicates UDM container state change ";
+           type enumeration 
+           {
+               enum active 
+               {
+                  description
+                    "if container is up";
+               }
+               enum inactive 
+               {
+                  description
+                    "If container is DOWN";
+               }
+               enum error 
+               {
+                  description
+                    "if, nither active nor inactive ";
+               }
+            }
+        }
+        
+        leaf alarmSource
+        {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "DeviceId:ContainerName:alarmName";
+        }
+        
+        leaf timeRaised
+        {
+		type date-and-time;
+		description
+		    "date and Time of Alarm Raised";
+        }
+            
+        leaf severity
+        {
+		type enumeration 
+		{
+		       enum CRITICAL 
+		       {
+		          description
+		            "critical Alarm";
+		       }
+		       enum MAJOR 
+		       {
+		          description
+		            "Major Alarm";
+		       }
+		       enum MINOR 
+		       {
+		          description
+		            "Minor Alarm";
+		       }
+		       enum WARNING 
+		       {
+		          description
+		            "Warning Alarm";
+		       }
+           	}
+		description
+		    "severity";
+         }
+            
+         leaf description
+         {
+		type DisplayString;
+		description
+		    "description";
+         }
+            
+         leaf clearAlarm
+         {
+		type boolean;
+		description
+		    "clearAlarm : YES or NO";
+         }
+         
+         leaf alarmType
+         {
+		type string 
+		{
+		    length "0 .. 500";
+		}
+		description
+		    "Can be software/Hardware/infra etc.";
+         }
+    }
+}
+

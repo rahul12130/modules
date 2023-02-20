@@ -1,0 +1,24 @@
+ip_add: 10.10.116.99
+port: 830
+user: amantya
+password: root123
+name: AMT
+type: ROUTER
+serial: BPBTG0002
+manufacturer: Amantya Tech
+hw_version: x86_64-AMT_s4248fb_c2538-r0
+sw_version: AMANTYA_S4248-ON-OcNOS-1.0.0.399-SP_IPADV_CE_AGGR-S0-P0
+is_device_added: true
+
+ip_add: 10.10.116.99
+port: 830
+user: amantya
+password: root123
+name: AMT
+type: ROUTER
+serial: BPBTG0002
+manufacturer: Amantya Tech
+hw_version: x86_64-AMT_s4248fb_c2538-r0
+sw_version: AMANTYA_S4248-ON-OcNOS-1.0.0.399-SP_IPADV_CE_AGGR-S0-P0
+is_device_added: true
+
