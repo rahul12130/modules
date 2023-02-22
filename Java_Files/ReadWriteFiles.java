@@ -10,18 +10,18 @@ import java.io.IOException;
 public class ReadWriteFiles {
 
     private static final String DEVICE_ID = "DEVICE_ID";
-    private static final String DEVICE_IP = "DEVICE_IP";
+    private static final String DEVICE_IP_KEY = "DEVICE_IP";
     private static final String EQUAL = "=";
-    private static final String PORT = "PORT";
-    private static final String USER_NAME = "USER_NAME";
-    private static final String PASSWORD = "PASSWORD";
-    private static final String DEVICE_NAME = "DEVICE_NAME";
-    private static final String DEVICE_TYPE = "DEVICE_TYPE";
-    private static final String SERIAL = "SERIAL";
-    private static final String MANUFACTURER = "MANUFACTURER";
-    private static final String HARDWARE_VERSION = "HARDWARE_VERSION";
-    private static final String SOFTWARE_VERSION = "SOFTWARE_VERSION";
-    private static final String DEVICE_ADDED = "DEVICE_ADDED";
+    private static final String PORT_KEY = "PORT";
+    private static final String USER_NAME_KEY = "USER_NAME";
+    private static final String PASSWORD_KEY = "PASSWORD";
+    private static final String DEVICE_NAME_KEY = "DEVICE_NAME";
+    private static final String DEVICE_TYPE_KEY = "DEVICE_TYPE";
+    private static final String SERIAL_KEY = "SERIAL";
+    private static final String MANUFACTURER_KEY = "MANUFACTURER";
+    private static final String HARDWARE_VERSION_KEY = "HARDWARE_VERSION";
+    private static final String SOFTWARE_VERSION_KEY = "SOFTWARE_VERSION";
+    private static final String DEVICE_ADDED_KEY = "DEVICE_ADDED";
     private static final String DEVICE_ID_FORMAT = "netconf:%s:830";
     public String readFile(String fileName) throws IOException {
         StringBuilder returnString = new StringBuilder("");
@@ -46,22 +46,33 @@ public void updateDeviceDetails(String filePath, String DEVICE_IP, String PORT, 
     System.out.println("Inside updateDeviceDetails");
 
    String contents =DEVICE_ID + EQUAL + String.format(DEVICE_ID_FORMAT, DEVICE_IP) + "\n" +
-                    DEVICE_IP + EQUAL + DEVICE_IP + "\n" +
-                    PORT + EQUAL + PORT + "\n" +
-                    USER_NAME + EQUAL + USER_NAME + "\n" +
-                    PASSWORD + EQUAL + PASSWORD + "\n" +
-                    DEVICE_NAME + EQUAL + DEVICE_NAME + "\n" +
-                    DEVICE_TYPE + EQUAL + DEVICE_TYPE + "\n" +
-                    SERIAL + EQUAL + SERIAL + "\n" +
-                    MANUFACTURER + EQUAL + MANUFACTURER + "\n" +
-                    HARDWARE_VERSION + EQUAL + HARDWARE_VERSION + "\n" +
-                    SOFTWARE_VERSION + EQUAL + SOFTWARE_VERSION + "\n" +
-                    DEVICE_ADDED + EQUAL + (DEVICE_ADDED ? "true" : "false") + "\n" +
+                    DEVICE_IP_KEY + EQUAL + DEVICE_IP + "\n" +
+                    PORT_KEY + EQUAL + PORT + "\n" +
+                    USER_NAME_KEY + EQUAL + USER_NAME + "\n" +
+                    PASSWORD_KEY + EQUAL + PASSWORD + "\n" +
+                    DEVICE_NAME_KEY + EQUAL + DEVICE_NAME + "\n" +
+                    DEVICE_TYPE_KEY + EQUAL + DEVICE_TYPE + "\n" +
+                    SERIAL_KEY + EQUAL + SERIAL + "\n" +
+                    MANUFACTURER_KEY + EQUAL + MANUFACTURER + "\n" +
+                    HARDWARE_VERSION_KEY + EQUAL + HARDWARE_VERSION + "\n" +
+                    SOFTWARE_VERSION_KEY + EQUAL + SOFTWARE_VERSION + "\n" +
+                    DEVICE_ADDED_KEY + EQUAL + (DEVICE_ADDED ? "true" : "false") + "\n" +
                     "#####";
 
     BufferedWriter writer = null;
+    String contentLine=" ";
+     try {
+            File file = new File("/opt/deviceInformation.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            contentLine = reader.readLine();
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+  
     try {
-        writer = new BufferedWriter(new FileWriter("/home/amantya/5gDevices/devices.txt", true));
+        writer = new BufferedWriter(new FileWriter(contentLine, true));
+       // System.out.println(contents);
         writer.write(contents);
         writer.newLine();
     } catch (IOException e) {
@@ -76,5 +87,6 @@ public void updateDeviceDetails(String filePath, String DEVICE_IP, String PORT, 
         }
     }
 }
+
 
 }
